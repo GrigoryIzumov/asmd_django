@@ -10,12 +10,19 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             install(username)
-            messages.success(request, f'Account created for {username}.')
-            return redirect('/')
+            messages.success(request, f'Hello {username}! Please proceed and log in')
+            return redirect('login')
     else:
         form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
+
+# Optional, maybe delete later
+def profile(request):
+    return render(
+        request,
+        'users/profile.html'
+    )
 
 def install(username):
     pass
