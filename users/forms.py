@@ -3,11 +3,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
 
-class UserRegistrationForm(UserCreationForm):
-    email = forms.EmailField()
-    first_name = forms.CharField()
-    last_name = forms.CharField()
 
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
 
     class Meta:
         model = User
