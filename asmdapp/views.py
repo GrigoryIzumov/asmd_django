@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Model, Deploy
+from .models import LearningModel, Deploy
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 
@@ -24,10 +24,9 @@ posts = [
 
 # @login_required
 def index(request):
-    num_models = Model.objects.count()
-    num_deploys = Deploy.objects.count()
+
     context = {
-        'posts': posts
+        'models': LearningModel.objects.all()
     }
     return render(
         request,

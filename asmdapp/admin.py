@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import LearningModel, Deploy
 
-# Register your models here.
+
+admin.site.register(LearningModel)
+admin.site.register(Deploy)
+
