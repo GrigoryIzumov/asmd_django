@@ -1,5 +1,6 @@
 {% extends "asmdapp/base.html" %}
 {% block content %}
+    <h1 class="mb-3">{{ view.kwargs.username }} {{ page_obj.paginator.count }} models right now</h1>
     {% for model in models %}
         <article class="media content-section">
           <img class="rounded-circle article-img" src="{{ model.user.profile.image.url }}">
@@ -13,5 +14,4 @@
           </div>
         </article>
     {% endfor %}
-
 {% endblock content %}

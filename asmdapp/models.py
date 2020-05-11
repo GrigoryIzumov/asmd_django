@@ -12,6 +12,9 @@ class LearningModel(models.Model):
     name = models.CharField(max_length=100)
     date_created = models.DateTimeField(default=timezone.now)
 
+    def get_absolute_url(self):
+        return reverse('model-detail', kwargs={'pk': self.pk})
+
 
 class Deploy(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
