@@ -5,15 +5,16 @@ from .views import (ModelListView,
                     ModelCreateView,
                     ModelUpdateView,
                     ModelDeleteView,
-                    UserModelListView)
+                    UserModelListView,
+                    upload,)
 
 
 urlpatterns = [
-
     path('', ModelListView.as_view(), name='home'),
     path('user/<str:username>/', UserModelListView.as_view(), name='user-models'),
     path('model/<int:pk>/', ModelDetailView.as_view(), name='model-detail'),
     path('model/new/', ModelCreateView.as_view(), name='model-create'),
     path('model/<int:pk>/update/', ModelUpdateView.as_view(), name='model-update'),
     path('model/<int:pk>/delete/', ModelDeleteView.as_view(), name='model-delete'),
+    path('upload/', views.upload, name='upload')
 ]

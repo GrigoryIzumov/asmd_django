@@ -1,0 +1,13 @@
+{% extends "asmdapp/base.html" %}
+{% block content %}
+     <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+         {% for datamodel in datamodels %}
+             <a href="{{ datamodel.file.url }}">{{ datamodel.file.name }}</a></td>
+         {% endfor %}
+     <button type="submit">Upload</button>
+  </form>
+     <p><a href="{% url 'home' %}">Return to home</a></p>
+
+{% endblock content %}

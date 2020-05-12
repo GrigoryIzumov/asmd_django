@@ -1,15 +1,17 @@
-from abc import ABC
-
-from django.shortcuts import render, get_object_or_404
-from .models import LearningModel, Deploy
+from django.shortcuts import render, get_object_or_404, redirect
+from django.urls import reverse
+from django.contrib import messages
+from .models import LearningModel, Deploy, DataModel
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+from django.views.generic.edit import FormView
+from .forms import DataModelForm
 
-
-# Create your views here.
 
 @login_required
 def index(request):
@@ -84,3 +86,21 @@ class ModelDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == model.user:
             return True
         return False
+
+
+def upload(request):
+    user = request.user
+    if request.method == 'POST':
+        file_form = DataModelForm(request.POST, request.FILES)
+        files = request.FILES.getlist('file')  #field name in model
+        if file_form.is_valid():
+            for f in files:
+                file_instance = DataModel(file=f, model=LearningModel.objects.get(pk=23))
+                file_instance.save()
+        messages.success(request, f'Success!')
+    else:
+        file_form = DataModelForm()
+    datamodels = DataModel.objects.filter(model=LearningModel.objects.get(pk=23))
+    context = {'form': file_form, 'datamodels': datamodels}
+    return render(request, 'asmdapp/upload.html', context)
+

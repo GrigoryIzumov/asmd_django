@@ -21,4 +21,13 @@ class Deploy(models.Model):
     name = models.CharField(max_length=100)
 
 
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+
+    return f'{instance.model.user.username}/{filename}'
+
+
+class DataModel(models.Model):
+    model = models.ForeignKey(LearningModel, on_delete=models.CASCADE)
+    file = models.FileField(upload_to=user_directory_path)
 
